@@ -1,12 +1,12 @@
-class NeuralNetwork{
-  constructor(inputNodes,hiddenNodes,outputNodes,learningRate){
+class NeuralNetwork {
+  constructor(inputNodes, hiddenNodes, outputNodes, learningRate) {
     if (inputNodes instanceof NeuralNetwork) {
       let preNuralNetwork = inputNodes;
       this.inputNodes = preNuralNetwork.inputNodes;
       this.hiddenNodes = [...preNuralNetwork.hiddenNodes];
       this.outputNodes = preNuralNetwork.outputNodes;
       this.learningRate = preNuralNetwork.learningRate || 0.1;
-      this.wHH = preNuralNetwork.wHH.map(hiddenWeights=>{
+      this.wHH = preNuralNetwork.wHH.map(hiddenWeights => {
         return hiddenWeights.clone();
       });
       this.wHO = preNuralNetwork.wHO.clone();
@@ -20,7 +20,7 @@ class NeuralNetwork{
         return nj.array(hiddenWeights);
       });
       this.wHO = nj.array(preJsonData.wHO);
-    } else{
+    } else {
       this.inputNodes = inputNodes;
       this.hiddenNodes = hiddenNodes;
       this.outputNodes = outputNodes;
@@ -41,18 +41,30 @@ class NeuralNetwork{
       this.wHO = nj.random([this.hiddenNodes[this.hiddenNodes.length - 1], this.outputNodes]).subtract(0.5)
     }
   }
-  
+
+  static randomfloat(min, max) {
+    min = min ? min : 0;
+    min = min ? min : 1;
+    return Math.random() * (max - min) + min;
+  }
+
+  static randomint(min, max) {
+    min = min ? min : 0;
+    min = min ? min : 100;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   // ! sigmoid activation function
-  activationFunction(x){
+  activationFunction(x) {
     return nj.sigmoid(x);
   }
 
   // ! sigmoid deactivation function
-  deactivationFunction(x){
+  deactivationFunction(x) {
     return x.multiply(x.subtract(1.0)).multiply(-1);
   }
 
-  train(inputList,targetList){
+  train(inputList, targetList) {
     let inputs = nj.array(inputList);
     let targets = nj.array(targetList);
     inputs = (inputs.ndim <= 1) ? nj.array([inputList]) : inputs;
@@ -71,11 +83,11 @@ class NeuralNetwork{
         hiddenOutputs.push(this.activationFunction(hiddenInputs[hiddenInputs.length - 1]))
       }
     }
-    
+
     // ? calculate all hidden to outputs
     let finalInputs = nj.dot(hiddenOutputs[hiddenOutputs.length - 1], this.wHO);
     let finalOutputs = this.activationFunction(finalInputs);
-    
+
     // * error calculation
     // ? error to output
     let outputError = targets.subtract(finalOutputs)
@@ -91,7 +103,7 @@ class NeuralNetwork{
     }
     hiddenError = hiddenError.reverse()
 
-   
+
     // * error reduction
     // ? hidden error reduction
     for (let i = 0; i < this.wHH.length; i++) {
@@ -106,7 +118,7 @@ class NeuralNetwork{
     this.wHO = this.wHO.add(nj.dot(hiddenOutputs[hiddenOutputs.length - 1].T, outputError.multiply(this.deactivationFunction(finalOutputs).multiply(this.learningRate))));
   }
 
-  query(inputList){
+  query(inputList) {
     let inputs = nj.array(inputList);
     inputs = (inputs.ndim <= 1) ? nj.array([inputList]) : inputs;
 
@@ -139,17 +151,46 @@ class NeuralNetwork{
   }
 
   // ? adding code for nuroevolution
-  copy(){
+  copy() {
     return new NeuralNetwork(this)
   }
 
-  mutate(rate){
+  static crossOver(nn1, nn2, crossRate, mutationRate, sd) {
+    crossRate = crossRate ? crossRate : 0.01;
+    mutationRate = mutationRate ? mutationRate : 0.1;
+    sd = sd ? sd : 0.1;
+    nn1.wHH.forEach((hidenWeights, index) => {
+      for (let i = 0; i < hidenWeights.shape[0]; i++) {
+        for (let j = 0; j < hidenWeights.shape[1]; j++) {
+          if (Math.random() < crossRate, mutationRate) {
+            hidenWeights.set(i, j, nn2.wHH[index].get(i, j));
+            if (Math.random() < mutationRate) {
+              hidenWeights.set(i, j, (hidenWeights.get(i, j) + this.randomG(0, sd)));
+            }
+          }
+        }
+      }
+    });
+    for (let i = 0; i < nn1.wHO.shape[0]; i++) {
+      for (let j = 0; j < nn1.wHO.shape[1]; j++) {
+        if (Math.random() < crossRate) {
+          nn1.wHO.set(i, j, nn2.wHO.get(i, j));
+          if (Math.random() < mutationRate) {
+            nn1.wHO.set(i, j, (nn1.wHO.get(i, j) + this.randomG(0, sd)));
+          }
+        }
+      }
+    }
+    return new NeuralNetwork(nn1);
+  }
+
+  mutate(rate,sd) {
+    sd = sd ? sd : 0.1;
     this.wHH.forEach(hidenWeights => {
       for (let i = 0; i < hidenWeights.shape[0]; i++) {
         for (let j = 0; j < hidenWeights.shape[1]; j++) {
-          if(Math.random() < rate){
-            // hidenWeights.set(i, j, (Math.random() * 2 - 1));
-            hidenWeights.set(i, j, (hidenWeights.get(i,j) + randomGaussian(0,0.1)));
+          if (Math.random() < rate) {
+            hidenWeights.set(i, j, (hidenWeights.get(i, j) + this.randomG(0, sd)));
           }
         }
       }
@@ -157,11 +198,38 @@ class NeuralNetwork{
     for (let i = 0; i < this.wHO.shape[0]; i++) {
       for (let j = 0; j < this.wHO.shape[1]; j++) {
         if (Math.random() < rate) {
-          // this.wHO.set(i, j, (Math.random() * 2 - 1));
-          this.wHO.set(i, j, (this.wHO.get(i, j) + randomGaussian(0, 0.1)));
+          this.wHO.set(i, j, (this.wHO.get(i, j) + this.randomG(0, sd)));
         }
       }
     }
+  }
+
+  static randomG(mean, sd = 1) {
+    let y1, y2, x1, x2, w;
+    do {
+      x1 = (Math.random() * 2) - 1;
+      x2 = (Math.random() * 2) - 1;
+      w = x1 * x1 + x2 * x2;
+    } while (w >= 1);
+    w = Math.sqrt(-2 * Math.log(w) / w);
+    y1 = x1 * w;
+
+    const m = mean || 0;
+    return y1 * sd + m;
+  }
+
+  randomG(mean, sd = 1) {
+    let y1, y2, x1, x2, w;
+    do {
+      x1 = (Math.random() * 2) - 1;
+      x2 = (Math.random() * 2) - 1;
+      w = x1 * x1 + x2 * x2;
+    } while (w >= 1);
+    w = Math.sqrt(-2 * Math.log(w) / w);
+    y1 = x1 * w;
+
+    const m = mean || 0;
+    return y1 * sd + m;
   }
 }
 

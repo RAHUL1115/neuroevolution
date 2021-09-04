@@ -1,6 +1,6 @@
-class Bird{
-  constructor(brain){
-    this.y = height/2;
+class Bird {
+  constructor(brain) {
+    this.y = height / 2;
     this.x = 50;
     this.gravity = 0.6;
     this.lift = -15;
@@ -16,9 +16,9 @@ class Bird{
     }
   }
 
-  show () {
+  show() {
     stroke(255)
-    fill(255,50)
+    fill(255, 50)
     ellipse(this.x, this.y, 32, 32)
   }
 
@@ -26,14 +26,14 @@ class Bird{
     this.velocity += this.lift;
   }
 
-  offscreen(){
+  offscreen() {
     return (this.y > height || this.y < 0);
   }
 
-  think(pipes){
+  think(pipes) {
     let closest = null;
     let closestD = Infinity;
-    pipes.forEach((pipe,i) => {
+    pipes.forEach((pipe, i) => {
       let d = pipe.x + pipe.w - this.x;
       if (d < closestD && d > 0) {
         closest = pipe;
@@ -57,11 +57,7 @@ class Bird{
 
   }
 
-  mutate(){
-    this.brain.mutate(0.1);
-  }
-
-  update(){
+  update() {
     this.score++;
     this.velocity += this.gravity;
     this.velocity *= 0.9;
