@@ -1,4 +1,4 @@
-const total = 250;
+const total = 50;
 let birds = [];
 let savedBirds = [];
 let pipes = [];
@@ -22,9 +22,6 @@ function preload() {
 function setup() {
   createCanvas(400, 600);
   slider = createSlider(1, 20, 1)
-  // for (let i = 0; i < total; i++) {
-  //   birds[i] = new Bird();
-  // }
   loadBestBird();
 }
 

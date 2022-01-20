@@ -9,6 +9,13 @@
     <script src="js/ga.js"></script>
     <script src="js/sketch.js"></script>
     <style>
+      body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
       span {
         display: inline-flex;
         margin-right: 20px;
@@ -16,7 +23,8 @@
       }
 
       .btn {
-        background: hsl(48, 100%, 50%);
+        color: white;
+        background: rgb(0, 123, 255);
         padding: 10px;
         border: none;
         border-radius: 4px;
@@ -25,21 +33,22 @@
   </head>
 
   <body>
-    <span id="score"></span>
-    <span id="heighscore"></span>
-    <span id="generation"></span>
-    <br>
+    <div class="scoreboard">
+      <span id="score"></span>
+      <span id="heighscore"></span>
+      <span id="generation"></span>
+    </div>
     <main></main>
-    <br>
-    <button class="btn" onclick="saveCurrentBestBird()">Save Best</button>
-    <button class="btn" onclick="loadBestBird()">Load Best</button>
-    <button class="btn" onclick="retrainBestBird()">Retrain Best</button>
-    <br>
-    <br>
-    <span id="speed"></span>
-    <span id="mutation"></span>
-    <span id="crossover"></span>
-    <br>
+    <div>
+      <button class="btn" onclick="saveCurrentBestBird()">Save Best</button>
+      <button class="btn" onclick="loadBestBird()">Load Best</button>
+      <button class="btn" onclick="retrainBestBird()">Retrain Best</button>
+    </div>
+    <div>
+      <span id="speed"></span>
+      <span id="mutation"></span>
+      <span id="crossover"></span>
+    </div>
   </body>
 
 </html>
