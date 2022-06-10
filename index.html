@@ -10,6 +10,7 @@
     <script src="js/sketch.js"></script>
     <style>
       body{
+        background-color: rgb(230, 230, 230);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -39,12 +40,12 @@
       <span id="generation"></span>
     </div>
     <main></main>
-    <div>
+    <div style="margin-top: 10px;">
       <button class="btn" onclick="saveCurrentBestBird()">Save Best</button>
       <button class="btn" onclick="loadBestBird()">Load Best</button>
       <button class="btn" onclick="retrainBestBird()">Retrain Best</button>
     </div>
-    <div>
+    <div style="margin-top: 10px;">
       <span id="speed"></span>
       <span id="mutation"></span>
       <span id="crossover"></span>

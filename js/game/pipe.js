@@ -9,7 +9,8 @@ class Pipe {
   }
 
   show() {
-    fill(255);
+    fill(33, 206, 15);
+    stroke(33, 206, 15)
     rect(this.x, 0, this.w, this.top);
     rect(this.x, height - this.bottom, this.w, this.bottom);
   }

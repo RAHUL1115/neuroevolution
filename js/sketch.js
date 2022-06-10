@@ -20,6 +20,7 @@ function preload() {
 }
 
 function setup() {
+  bg = loadImage('assets/bg.png');
   createCanvas(400, 600);
   slider = createSlider(1, 20, 1)
   loadBestBird();
@@ -69,7 +70,7 @@ function draw() {
   }
 
   // all the drawing
-  background(0);
+  background(bg);
 
   for (let bird of birds) {
     bird.show();
@@ -84,7 +85,7 @@ function draw() {
   }
   score = birds[0].score;
 
-  document.getElementById('score').innerHTML = "score :" + score;
+  document.getElementById('score').innerHTML = "Score :" + score;
   document.getElementById('heighscore').innerHTML = "Heigh Score :" + highScore;
   document.getElementById('generation').innerHTML = "Generation :" + generation;
   document.getElementById('speed').innerHTML = "Speed :" + slider.value();
