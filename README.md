@@ -1,6 +1,17 @@
 # Live Verison
- https://rahul1115.github.io/neuroevolution/
+https://rahul1115.github.io/neuroevolution/
  
- # About project
+ # About This Project
  
- i have created this project just to create a basic neuroevolution game and this project is just for fun and to explore about neural network and this projects is been created using [simpleNeuralNetwork](https://github.com/RAHUL1115/simpleNeuralNetwork) and [p5.js](https://p5js.org/).
+Hi there, I am Rahul Gupta and I created this project out of curiosity and my intrests in the field of Artificial Intelligence & Machine Learning.
+
+This project is been created using [simple Neural Network js](https://github.com/RAHUL1115/simpleNeuralNetwork) and [p5.js](https://p5js.org/).
+
+## [p5.js](https://p5js.org/)
+
+p5.js is a JavaScript library for creative coding, with a focus on making coding accessible and inclusive for artists, designers, educators, beginners, and anyone else! p5.js is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone.
+
+
+## [Simple Neural Network js](https://github.com/RAHUL1115/simpleNeuralNetwork)
+
+simpleNeuralNetwork is a javascript module for creating simple neural network in javascript and it creatd by my for this project.
