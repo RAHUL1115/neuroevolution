@@ -1,5 +1,5 @@
 # Live Verison
-https://rahul1115.github.io/neuroevolution/
+https://neuroevolution.pages.dev
  
  # About This Project
  
