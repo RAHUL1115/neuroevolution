@@ -1,4 +1,4 @@
-# Live Verison
+# Live Demo
 https://neuroevolution.pages.dev
  
  # About This Project
@@ -14,4 +14,4 @@ p5.js is a JavaScript library for creative coding, with a focus on making coding
 
 ## [Simple Neural Network js](https://github.com/RAHUL1115/simpleNeuralNetwork)
 
-simpleNeuralNetwork is a javascript module for creating simple neural network in javascript and it creatd by my for this project.
+simpleNeuralNetwork is a javascript module for creating simple neural network in javascript and it is creatd by me for this project.
